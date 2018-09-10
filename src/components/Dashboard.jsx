@@ -89,6 +89,14 @@ class Dashboard extends Component {
 
   }
   
+  focusOnEmployees()
+  {
+    if(document.getElementById("dashboard"))
+    {
+        document.getElementById("dashboard").focus();        
+    }      
+  }
+  
   render() {
 
      let data = this.props.employees ? this.props.employees : [];
@@ -160,6 +168,7 @@ class Dashboard extends Component {
           { listOfDepartments }
         </ul>
         <h1>Employees </h1>
+        <h6 onClick={ this.focusOnEmployees }> Click on me to focus on the dashboard to use the keyboard </h6>
         <div className="dashboard" onKeyDown={(e) => this.onKeyPressed(e)} tabIndex="0" id="dashboard">
             { listOfEmployees }
         </div>

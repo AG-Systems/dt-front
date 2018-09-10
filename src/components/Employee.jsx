@@ -31,16 +31,16 @@ class Employee extends Component {
       {
           if(!this.props.currentEmployeeIndex)
           {          
-              this.props.setEmployeeID(this.props.match.params.id);  
+              this.props.setEmployeeID(this.props.match.params.id);   /*If the user starts on the employee page */
               this.props.history.push('/');
           } else {
-              this.props.history.push('/');            
+              this.props.history.push('/');   /* If the user starts on the dashboard and navigates into the employee page */         
           }
       } else {
-        if(e.keyCode === 38)
+        if(e.keyCode === 38) /* Up arrow */
         {
           this.props.prevEmployee();
-        } else if (e.keyCode === 40)
+        } else if (e.keyCode === 40) /* Down arrow */
         {
            this.props.nextEmployee();
         } 

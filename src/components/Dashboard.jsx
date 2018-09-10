@@ -31,10 +31,10 @@ class Dashboard extends Component {
   
   onKeyPressed(e)
   {
-      if(e.keyCode === 38)
+      if(e.keyCode === 38) /* Up arrow */
       {
         this.props.prevEmployee();
-      } else if (e.keyCode === 40)
+      } else if (e.keyCode === 40) /* Down arrow */
       {
          this.props.nextEmployee();
       } else if (e.keyCode === 13 && this.props.currentEmployeeIndex !== null)
@@ -43,7 +43,7 @@ class Dashboard extends Component {
       }
       
   }
-  getPos(el) {
+  getPos(el) { /* Get X, and Y axis of an element */
       for (var lx=0, ly=0;
            el != null;
            lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
@@ -106,8 +106,8 @@ class Dashboard extends Component {
         if(this.props.filter === null)
         {
           return (
-            <Link to={ "/employee/" + index }>
-              <div className={ index !== this.props.currentEmployeeIndex ? "card" : "card bg-dark text-white" } key={ index } id={ "cardID-" + index }>
+            <Link to={ "/employee/" + index } key={ index }>
+              <div className={ index !== this.props.currentEmployeeIndex ? "card" : "card bg-dark text-white" } id={ "cardID-" + index }>
                 <div className="card-body">
                   <h5 className="card-title">{ this.nameUpperCase(employee.name) }</h5>
                   <p className="card-text">Title: { this.nameUpperCase(employee.job_titles) }</p>
@@ -120,8 +120,8 @@ class Dashboard extends Component {
           if(employee.department === this.props.filter)
           {
             return (
-            <Link to={ "/employee/" + index }>
-              <div className={ index !== this.props.currentEmployeeIndex ? "card" : "card bg-dark text-white" } key={ index } id={ "cardID-" + index }>
+            <Link to={ "/employee/" + index }  key={ index }>
+              <div className={ index !== this.props.currentEmployeeIndex ? "card" : "card bg-dark text-white" } id={ "cardID-" + index }>
                 <div className="card-body">
                   <h5 className="card-title">{ this.nameUpperCase(employee.name) }</h5>
                   <p className="card-text">Title: { this.nameUpperCase(employee.job_titles) }</p>

@@ -74,6 +74,8 @@ class Employee extends Component {
     {
       document.getElementById("employee").focus();      
     }
+    
+    this.props.setEmployeeID(this.props.match.params.id);  // This gets called if onClick from the dashbaord
   }
   
   render() {

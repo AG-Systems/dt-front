@@ -106,7 +106,7 @@ class Dashboard extends Component {
         if(this.props.filter === null)
         {
           return (
-            <Link to={ "/employee/" + employee.id }>
+            <Link to={ "/employee/" + index }>
               <div className={ index !== this.props.currentEmployeeIndex ? "card" : "card bg-dark text-white" } key={ index } id={ "cardID-" + index }>
                 <div className="card-body">
                   <h5 className="card-title">{ this.nameUpperCase(employee.name) }</h5>
@@ -120,7 +120,7 @@ class Dashboard extends Component {
           if(employee.department === this.props.filter)
           {
             return (
-            <Link to={ "/employee/" + employee.id }>
+            <Link to={ "/employee/" + index }>
               <div className={ index !== this.props.currentEmployeeIndex ? "card" : "card bg-dark text-white" } key={ index } id={ "cardID-" + index }>
                 <div className="card-body">
                   <h5 className="card-title">{ this.nameUpperCase(employee.name) }</h5>

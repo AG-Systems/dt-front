@@ -29,7 +29,13 @@ class Employee extends Component {
       
       if (e.keyCode === 13)
       {
-          this.props.history.push('/');
+          if(!this.props.currentEmployeeIndex)
+          {          
+              this.props.setEmployeeID(this.props.match.params.id);  
+              this.props.history.push('/');
+          } else {
+              this.props.history.push('/');            
+          }
       } else {
         if(e.keyCode === 38)
         {

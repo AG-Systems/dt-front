@@ -8,7 +8,7 @@ export default function App(state = [], action) {
                 currentEmployeeIndex: null,
                 filter: null
             };
-            return state;
+            return state; /* initialize the data */
             
         case 'NEXT_EMPLOYEE':
              
@@ -19,29 +19,33 @@ export default function App(state = [], action) {
                  if(state.currentEmployeeIndex === null || state.currentEmployeeIndex === state.employees.length - 1)
                  {
 
-                    increment = state.employees.map(e => e.department).indexOf(state.filter);
+                    increment = state.employees.map(e => e.department).indexOf(state.filter); /* Get the index of the first occurence of the depertment */
 
                  } else {
-                     
-                    for(var i = state.currentEmployeeIndex + 1; i < state.employees.length; i += 1) {
+                    /* starts with the next elemenet and then finds the first occurence of the depertment filter */
+                    for(var i = state.currentEmployeeIndex + 1; i < state.employees.length; i += 1) { 
                         if(state.employees[i]["department"] === state.filter) {
                             increment = i;
                             break;
                         }
                     }
                     
-                    if(increment === null)
+
+                    
+                    if(increment === null)  /* If its end of the list, starts from 0 and finds the first occurence */
                     {
                         increment = state.employees.map(e => e.department).indexOf(state.filter);
                     }
+                    
+
                  }                  
              } else {
-                 
+                 /* If there is no filter enabled */
                  if(state.currentEmployeeIndex === null || state.currentEmployeeIndex === state.employees.length - 1)
                  {
-                     increment = 0;
+                     increment = 0; /* Go bottom to the top */
                  } else {
-                     increment = state.currentEmployeeIndex + 1
+                     increment = state.currentEmployeeIndex + 1;
                  }                 
              }
 
@@ -69,26 +73,33 @@ export default function App(state = [], action) {
                     
                     if(decrement === null)
                     {
+                       /* Starts from the end of the list if its front of the list. Finds the first occurence back of the list. */
                         for(var i = 0; i < state.employees.length; i += 1) {
                             if(state.employees[i]["department"] === state.filter) {
                                 decrement = i;
                             }
                         }   
                     }
+                    
+                   
                  } else {
+                     /* Finds the last occurence of the obj of the filter */
                     for(var i = 0; i < state.employees.length; i += 1) {
                         if(state.employees[i]["department"] === state.filter) {
                             decrement = i;
                         }
-                    }                     
+                    }  
+                    
+                    
                  }
                  
              } else {
+                 /* If there is no filter enabled */
                  if(state.currentEmployeeIndex === 0)
                  {
-                     decrement = state.employees.length - 1;
+                     decrement = state.employees.length - 1; /* Go top to the bottom */
                  } else {
-                     decrement = state.currentEmployeeIndex - 1
+                     decrement = state.currentEmployeeIndex - 1;
                  }                 
              }
              
@@ -97,14 +108,14 @@ export default function App(state = [], action) {
                 currentEmployeeIndex: decrement
               };
               
-        case 'SET_EMPLOYEE':
+        case 'SET_EMPLOYEE': /* This sets the id for the currentEmployeeIndex */
             
             return {
                 ...state,
                 currentEmployeeIndex: action.id
             }
             
-        case 'SET_FILTER':
+        case 'SET_FILTER': /* This sets the filter */
             
             let filter = action.filter;
             
@@ -113,7 +124,14 @@ export default function App(state = [], action) {
                filter
             };
             
-        
+        case 'NEW_EMPLOYEE': /* Axios post request to create a new employee */
+            return { 
+                ...state,
+                response: action.res   
+            };  
+            
+        default:
+            return state
     }
 
 

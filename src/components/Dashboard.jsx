@@ -43,16 +43,39 @@ class Dashboard extends Component {
       }
       
   }
+  getPos(el) {
+      for (var lx=0, ly=0;
+           el != null;
+           lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+      // return {x: lx,y: ly};
+      return ly;
+  }
   
   componentDidMount()
   {
 
     if(this.props.currentEmployeeIndex)
     {
-          let topPos = document.getElementById("cardID-" + this.props.currentEmployeeIndex).offsetTop;
-          document.getElementById('dashboard').scrollTop = topPos - 400; 
+        window.scrollTo(0, this.getPos(document.getElementById("cardID-" + this.props.currentEmployeeIndex)));
     }
-    document.getElementById("dashboard").focus();     
+    
+    if(document.getElementById("dashboard"))
+    {
+        document.getElementById("dashboard").focus();        
+    }
+   
+  }
+  
+ componentWillReceiveProps(nextProps)
+ {
+     if(nextProps.currentEmployeeIndex > this.props.currentEmployeeIndex)
+     {
+          window.scrollTo(0, this.getPos(document.getElementById("cardID-" + this.props.currentEmployeeIndex)));      
+     } else if (nextProps.currentEmployeeIndex < this.props.currentEmployeeIndex)
+     {
+          window.scrollTo(0, this.getPos(document.getElementById("cardID-" + this.props.currentEmployeeIndex)) - 130 );       
+     }
+
   }
   
   setFilter(filter)
@@ -126,8 +149,9 @@ class Dashboard extends Component {
     return (
       <div>
         <h1>New Employee </h1>
-        <Link to="/new" class="btn btn-danger">Add</Link>
+        <Link to="/new" className="btn btn-danger">Add</Link>
         <h1> Department </h1>
+        <h6> Click on department again to filter all </h6>
         <ul className="list-group departments">
           { listOfDepartments }
         </ul>
@@ -143,17 +167,7 @@ class Dashboard extends Component {
 
 
 const mapStateToProps = (state) => {
-    
-    if(state["currentEmployeeIndex"] !== null)
-    {
-        if(document.getElementById("cardID-" + state["currentEmployeeIndex"]))
-        {
-              
-              let topPos = document.getElementById("cardID-" + state["currentEmployeeIndex"]).offsetTop;
-              document.getElementById('dashboard').scrollTop = topPos - 400; 
-              
-        }
-    }
+
     return {
         employees: state["employees"],
         currentEmployeeIndex: state["currentEmployeeIndex"],

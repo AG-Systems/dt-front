@@ -58,3 +58,27 @@ export function setFilter(filter) {
   }
 
 }
+
+export function newEmployee(firstName, lastName, title, salary, department) {
+
+   return function (dispatch) {
+      axios({
+        method: 'post',
+        url: 'https://dt-interviews.appspot.com/',
+        data: {
+            name:  firstName + ", " + lastName,
+            job_titles: title,
+            employee_annual_salary: parseInt(salary),
+            department: department
+        },
+       headers: {
+           'Content-Type': 'text/plain;charset=utf-8',
+       }
+      }).then((res) =>  dispatch({
+                type: 'NEW_EMPLOYEE',
+                res
+            }));
+
+  }
+
+}

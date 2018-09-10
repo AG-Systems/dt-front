@@ -38,10 +38,6 @@ class Employee extends Component {
         {
            this.props.nextEmployee();
         } 
-        /*
-        let employeeID = this.props.currentEmployeeIndex ? this.props.currentEmployeeIndex : this.props.match.params.id;
-        this.props.history.push('/employee/' + employeeID.toString());           
-        */
       }
   }
   

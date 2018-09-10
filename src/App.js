@@ -5,14 +5,13 @@ import React, { Component } from 'react';
 /* Components */
 import AddEmployee from './components/AddEmployee.jsx';
 import Employee from './components/Employee.jsx';
-import Navbar from './components/Navbar.jsx';
 import Dashboard from './components/Dashboard.jsx';
 
 
 /* Redux, Thunk, & Routing */
 
 
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect } from 'react-router-dom';
 
 
 import { Provider } from 'react-redux';

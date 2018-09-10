@@ -34,13 +34,27 @@ export function prevEmployee() {
   }
 }
 
-export function viewEmployee() {
+export function setEmployeeID(employeeID) {
 
+   let id = parseInt(employeeID)
    return function (dispatch) {
-
          dispatch({
-                type: 'VIEW_EMPLOYEE'
+                type: 'SET_EMPLOYEE',
+                id
             });
 
   }
+
+}
+
+export function setFilter(filter) {
+
+   return function (dispatch) {
+         dispatch({
+                type: 'SET_FILTER',
+                filter
+            });
+
+  }
+
 }

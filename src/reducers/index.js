@@ -3,65 +3,116 @@ export default function App(state = [], action) {
     switch(action.type) {
         
         case 'GET_EMPLOYEES':
-            state = { employees: action.res.data, currentEmployeeIndex: null, employeeScreen: false  };
+            state = { 
+                employees: action.res.data, 
+                currentEmployeeIndex: null,
+                filter: null
+            };
             return state;
             
         case 'NEXT_EMPLOYEE':
-            
+             
              let increment = null;
-             if(state.currentEmployeeIndex === null || state.currentEmployeeIndex === state.employees.length - 1)
+             
+             if(state.filter !== null)
              {
-                 increment = 0;
+                 if(state.currentEmployeeIndex === null || state.currentEmployeeIndex === state.employees.length - 1)
+                 {
+
+                    increment = state.employees.map(e => e.department).indexOf(state.filter);
+
+                 } else {
+                     
+                    for(var i = state.currentEmployeeIndex + 1; i < state.employees.length; i += 1) {
+                        if(state.employees[i]["department"] === state.filter) {
+                            increment = i;
+                            break;
+                        }
+                    }
+                    
+                    if(increment === null)
+                    {
+                        increment = state.employees.map(e => e.department).indexOf(state.filter);
+                    }
+                 }                  
              } else {
-                 increment = state.currentEmployeeIndex + 1
+                 
+                 if(state.currentEmployeeIndex === null || state.currentEmployeeIndex === state.employees.length - 1)
+                 {
+                     increment = 0;
+                 } else {
+                     increment = state.currentEmployeeIndex + 1
+                 }                 
              }
+
              
              return {
-                employees: state.employees,
+                ...state,
                 currentEmployeeIndex: increment
               };
               
         case 'PREV_EMPLOYEE':
             
              let decrement = null;
-             if(state.currentEmployeeIndex === 0)
+             
+             if(state.filter !== null)
              {
-                 decrement = state.employees.length - 1;
+                    
+                 if(state.currentEmployeeIndex !== null)
+                 {
+                    for(var i = state.currentEmployeeIndex - 1; i >= state.employees.map(e => e.department).indexOf(state.filter); i -= 1) {
+                        if(state.employees[i]["department"] === state.filter) {
+                            decrement = i;
+                            break;
+                        }
+                    } 
+                    
+                    if(decrement === null)
+                    {
+                        for(var i = 0; i < state.employees.length; i += 1) {
+                            if(state.employees[i]["department"] === state.filter) {
+                                decrement = i;
+                            }
+                        }   
+                    }
+                 } else {
+                    for(var i = 0; i < state.employees.length; i += 1) {
+                        if(state.employees[i]["department"] === state.filter) {
+                            decrement = i;
+                        }
+                    }                     
+                 }
+                 
              } else {
-                 decrement = state.currentEmployeeIndex - 1
+                 if(state.currentEmployeeIndex === 0)
+                 {
+                     decrement = state.employees.length - 1;
+                 } else {
+                     decrement = state.currentEmployeeIndex - 1
+                 }                 
              }
              
              return {
-                employees: state.employees,
+                ...state,
                 currentEmployeeIndex: decrement
               };
               
-        case 'VIEW_EMPLOYEE':
+        case 'SET_EMPLOYEE':
             
-            // id, first name, last name, title, salary, department
+            return {
+                ...state,
+                currentEmployeeIndex: action.id
+            }
             
-            let currentEmployee = state.employees[state.currentEmployeeIndex];
+        case 'SET_FILTER':
             
-
-            let id = currentEmployee.id;
-            let first_name = currentEmployee.name;
-            let last_name = currentEmployee.name;
-            let title = currentEmployee.job_titles;
-            let salary = currentEmployee.employee_annual_salary;
-            let department = currentEmployee.department;
-
-
-             return {
-                employees: state.employees,
-                currentEmployeeIndex: state.currentEmployeeIndex,
-                employeeScreen: true,
-                id,
-                first_name,
-                last_name,
-                title,
-                salary,
-                department
-              };
+            let filter = action.filter;
+            
+            return {
+               ...state,
+               filter
+            };
+            
         
     }
 

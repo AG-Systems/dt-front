@@ -11,10 +11,9 @@ import Dashboard from './components/Dashboard.jsx';
 
 /* Redux, Thunk, & Routing */
 
-/*
-import { BrowserRouter } from 'react-router-dom';
-import { Link, Switch, Route } from 'react-router-dom';
-*/
+
+import { BrowserRouter, Route } from 'react-router-dom';
+
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -29,14 +28,15 @@ const store = createStore(rootReducer, [], applyMiddleware(thunk));
 class App extends Component {
   render() {
     return (
+    <BrowserRouter >
       <Provider store={store}>
         <div className="container">
-            <Dashboard />
-            <h1> Employee </h1>
-            <Employee />
-            <AddEmployee />
+            <Route exact path="/" component={ Dashboard }/>
+            <Route exact path="/employee/:id" component={ Employee }/>
+            <Route exact path="/new" component={ AddEmployee } />
         </div>
       </Provider>
+    </BrowserRouter >
     );
   }
 }

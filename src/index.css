@@ -2,3 +2,13 @@
   height: 50vh;
   overflow-y: auto;
 }
+
+.departments {
+  height: 30vh;
+  overflow-y: auto;
+}
+
+.addnew {
+  margin: 0 auto;
+  max-width: 320px;
+}

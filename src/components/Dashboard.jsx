@@ -106,24 +106,28 @@ class Dashboard extends Component {
         if(this.props.filter === null)
         {
           return (
-            <div className={ index !== this.props.currentEmployeeIndex ? "card" : "card bg-dark text-white" } key={ index } id={ "cardID-" + index }>
-              <div className="card-body">
-                <h5 className="card-title">{ this.nameUpperCase(employee.name) }</h5>
-                <p className="card-text">Title: { this.nameUpperCase(employee.job_titles) }</p>
-              </div>
-            </div>
-            );          
-        } else {
-          
-          if(employee.department === this.props.filter)
-          {
-            return (
+            <Link to={ "/employee/" + employee.id }>
               <div className={ index !== this.props.currentEmployeeIndex ? "card" : "card bg-dark text-white" } key={ index } id={ "cardID-" + index }>
                 <div className="card-body">
                   <h5 className="card-title">{ this.nameUpperCase(employee.name) }</h5>
                   <p className="card-text">Title: { this.nameUpperCase(employee.job_titles) }</p>
                 </div>
               </div>
+            </Link>
+            );          
+        } else {
+          
+          if(employee.department === this.props.filter)
+          {
+            return (
+            <Link to={ "/employee/" + employee.id }>
+              <div className={ index !== this.props.currentEmployeeIndex ? "card" : "card bg-dark text-white" } key={ index } id={ "cardID-" + index }>
+                <div className="card-body">
+                  <h5 className="card-title">{ this.nameUpperCase(employee.name) }</h5>
+                  <p className="card-text">Title: { this.nameUpperCase(employee.job_titles) }</p>
+                </div>
+              </div>
+            </Link>
               );             
           }
         
